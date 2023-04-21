@@ -1,6 +1,23 @@
-import React from "react";
+import {React, useState} from "react";
 
-const ListaDeComprasTable = () => (
+const ListaDeComprasTable = () => {
+
+    const [listasDeCompras, setListasDeCompras] = useState("");
+    //const listasDeDesejos = null;
+    //const listasDeTarefas = null;
+  
+    fetch("http://191.101.70.121:8081/listas")
+    .then(response => response.json())
+    .then(xxx => setListasDeCompras(xxx))
+    .catch(function(error){
+      alert("Erro na requisição");
+    })
+    .finally(function(){
+      console.log(listasDeCompras);
+    });
+
+
+
     <table className="table table-hover">
         <thead>
             <tr>
@@ -58,6 +75,6 @@ const ListaDeComprasTable = () => (
             </tr>
         </tbody>
     </table>
-);
+};
 
 export default ListaDeComprasTable;
