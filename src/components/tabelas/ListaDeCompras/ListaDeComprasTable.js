@@ -1,5 +1,6 @@
 import {Component, React/*, useState*/} from "react";
 import axios from "axios";
+import BotaoSelecionarLista from "../../Botoes/BotaoSelecionarLista";
 
 class ListaDeComprasTable extends Component {
 
@@ -24,11 +25,6 @@ class ListaDeComprasTable extends Component {
         this.setState({ listaSelecionada });
       })      
     }
-
-    handleSelecionarLista = (event) => {        
-        console.log(event.target.value);
-        console.log("selecionada", this.state.listaSelecionada);
-    }    
 
     render(){
         console.log(this.state.listasDeCompras);
@@ -59,9 +55,8 @@ class ListaDeComprasTable extends Component {
                                 <th scope="row">{lista.nomeLista}</th>
                                 <td>{lista.descricaoLista}</td>
                                 <td>{lista.dataCriacao}</td>
-                                <td><button onClick={this.handleSelecionarLista} id={lista.id} value={lista.id}>
-                                    Selecionar
-                                    </button>
+                                <td>
+                                    <BotaoSelecionarLista id={lista.id}/>
                                 </td>
                             </tr>
                         ))}
