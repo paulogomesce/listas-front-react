@@ -1,6 +1,7 @@
 import {Component, React/*, useState*/} from "react";
 import axios from "axios";
 import BotaoSelecionarLista from "../../Botoes/BotaoSelecionarLista";
+import LinhaTabelaLista from "../../linhasTabela/LinhaTabelaLista/LinhaTabelaLista";
 
 class ListaDeComprasTable extends Component {
 
@@ -44,21 +45,13 @@ class ListaDeComprasTable extends Component {
                     <thead>
                         <tr>
                             <th scope="col">Nome</th>
-                            <th scope="col">Descrição</th>
                             <th scope="col">Data de Criação</th>
                             <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.state.listasDeCompras.map(lista => (
-                            <tr key={lista.id}>
-                                <th scope="row">{lista.nomeLista}</th>
-                                <td>{lista.descricaoLista}</td>
-                                <td>{lista.dataCriacao}</td>
-                                <td>
-                                    <BotaoSelecionarLista id={lista.id}/>
-                                </td>
-                            </tr>
+                            <LinhaTabelaLista lista={lista} key={lista.id}/>
                         ))}
                     </tbody>
                 </table>
