@@ -1,5 +1,7 @@
 import React from "react";
 import BotaoSelecionarLista from "../../Botoes/BotaoSelecionarLista";
+import dateFormat, {masks} from "dateformat";
+import DataHora from "../../Genericos/DataHora";
 
 export default function Rows({listas}){
 
@@ -10,7 +12,7 @@ export default function Rows({listas}){
                     <div style={{fontWeight: "bold"}}>{lista.nomeLista}</div>
                     <div>{lista.descricaoLista}</div>
                 </td>
-                <td>{lista.dataCriacao}</td>
+                <td><DataHora dataHora={lista.dataCriacao} /></td>
                 <td>
                     <BotaoSelecionarLista id={lista.id}/>
                 </td>
