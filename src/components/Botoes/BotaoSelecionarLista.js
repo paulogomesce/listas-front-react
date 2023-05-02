@@ -1,14 +1,19 @@
-import React from "react";
+import React,{useState} from "react";
 import PropTypes from 'prop-types';
 
-function handleSelecionarLista(event){        
-    console.log(event.target.value);
-} 
+
 
 export default function BotaoSelecionarLista({id}){
+    const [idLista, setIdLista] = useState();
+
+    function handleSelecionarLista(idLista){        
+        console.log(idLista);
+        setIdLista(idLista);
+    }
+
     return(
-        <button className="btn btn-primary" onClick={handleSelecionarLista} value={id}>
-            Selecionar
+        <button className="btn btn-primary" onClick={() => handleSelecionarLista(id)} value={id}>
+            Selecionar({idLista})
         </button>
     )
 }
