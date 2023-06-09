@@ -12,7 +12,7 @@ export default function BotaoSelecionarLista({id}){
     }
 
     return(
-        <button className="btn btn-primary" onClick={() => handleSelecionarLista(id)} value={id}>
+        <button className="btn btn-primary btn-sm" onClick={() => handleSelecionarLista(id)} value={id}>
             Selecionar({idLista})
         </button>
     )

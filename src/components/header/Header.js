@@ -1,17 +1,18 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Header = () => (
     <div className="container">
         <header className="d-flex justify-content-center py-3">
             <ul className="nav nav-pills">
                 <li className="nav-item">
-                    <a href="#" className="nav-link active" aria-current="page">Comprras</a>
+                    <NavLink to="/compras" className="nav-link btn-sm" activeClassName="active">Compras</NavLink>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link">Desejos</a>
+                    <NavLink to="/desejos" className="nav-link btn-sm" activeClassName="active">Desejos</NavLink>
                 </li>
                 <li className="nav-item">
-                    <a href="#" className="nav-link">Tarefas</a>
+                    <NavLink to="/tarefas" className="nav-link btn-sm" activeClassName="active">Tarefas</NavLink>
                 </li>
             </ul>
         </header>
