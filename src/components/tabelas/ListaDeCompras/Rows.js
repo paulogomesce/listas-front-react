@@ -1,6 +1,5 @@
 import React from "react";
 import BotaoSelecionarLista from "../../Botoes/BotaoSelecionarLista";
-import dateFormat, {masks} from "dateformat";
 import DataHora from "../../Genericos/DataHora";
 
 export default function Rows({listas}){

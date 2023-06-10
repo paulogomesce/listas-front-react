@@ -18,7 +18,6 @@ class ListaDeComprasTable extends Component {
     teste = 0;
 
     componentDidMount(){
-        console.log("Componente montado!");
         axios.get("http://191.101.70.121:8081/listas")
       .then(res => {
         const listasDeCompras  = res.data;
@@ -29,7 +28,6 @@ class ListaDeComprasTable extends Component {
     }
 
     render(){
-        console.log(this.state.listasDeCompras);
         /*Classes de tablela(tr),table-primary,table-secondary,table-success
         table-danger,table-warning,table-info,table-light,table-dark,*/
         return(

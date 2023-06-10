@@ -1,5 +1,4 @@
-import React from "react";
-import dateFormat, {masks} from "dateformat";
+import dateFormat from "dateformat";
 
 export default function DataHora({dataHora}){
     
