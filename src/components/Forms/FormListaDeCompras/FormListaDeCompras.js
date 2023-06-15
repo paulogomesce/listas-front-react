@@ -1,65 +1,32 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import DataHora from "../../Genericos/DataHora";
+import FormAddItem from "./FormAddItem";
 
-const formReducer = (state, event) => {
+/*const formReducer = (state, event) => {
     return {
       ...state,
       [event.name]: event.value,
     };
-  };
+  };*/
 
 export default function FormListaDeCompras() {
     const { idLista } = useParams();
     const [lista, setLista] = useState({ idUsuarioProprietario: 1 });
-    const [usuarioProprietario, setUsuarioProprietario] = useState({});
+    //const [usuarioProprietario, setUsuarioProprietario] = useState({});
     const [itens, setItens] = useState([]);
-    const [idUsuariosConvidados, setIdUsuariosConvidados] = useState([]);
-    const [itemCrud, setItemCrud] = useReducer(formReducer, {"idLista" : idLista});//useState({});
+    //const [idUsuariosConvidados, setIdUsuariosConvidados] = useState([]);
 
     useEffect(() => {
         axios.get("http://191.101.70.121:8081/listas/" + idLista)
             .then(res => {
                 const lista = res.data;
                 setLista(lista);
-                setUsuarioProprietario(lista.usuarioProprietario);
+                //setUsuarioProprietario(lista.usuarioProprietario);
                 setItens(lista.itens);
             })
 
     }, []);
-
-    const handleChangeItem = (event) => {
-        const isCheckbox = event.target.type === "checkbox";
-        setItemCrud({
-          name: event.target.name,
-          value: isCheckbox ? event.target.checked : event.target.value,
-        });
-    };
-
-    const handleSubmitAddItem = (event) =>{
-        event.preventDefault();        
-        const novoItem = {
-            idLista : itemCrud.idLista,
-            produto:{
-                nomeProduto : itemCrud.nomeProduto
-            },
-            quantidade : itemCrud.quantidade
-        }
-
-        axios.post('http://191.101.70.121:8081/listas/adicionar-item', novoItem)
-          .then(function (response) {
-            const itemGravado = response.data;
-
-            console.log(itemGravado);
-
-            setItens([...itens, itemGravado]);
-
-            console.log(response);
-          }).catch(function (error) {
-            console.log(error);
-          });
-    }
 
     return (
         <>
@@ -105,35 +72,7 @@ export default function FormListaDeCompras() {
                     {/*Adicionar item*/}
                     <tr style={{display: ""}}>
                         <td colSpan={3}>
-                            <form onSubmit={handleSubmitAddItem}>
-                                <div className="row g-1">
-                                    
-                                    <div className="col-8">
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-sm"
-                                            id="nomeProduto"
-                                            name="nomeProduto"
-                                            placeholder="Nome do produto"
-                                            onChange={handleChangeItem}/>
-                                    </div>
-                                    <div className="col-2">
-                                        <input
-                                            type="text"
-                                            className="form-control form-control-sm"
-                                            id="quantidade"
-                                            name="quantidade"
-                                            placeholder="Quantidade"
-                                            onChange={handleChangeItem}/>
-                                    </div>
-                                    <div className="col-2">
-                                        <button className="btn btn-primary btn-sm" type="submit">
-                                            <i className="bi bi-check-lg"></i>
-                                        </button>
-                                    </div>
-                                    
-                                </div>
-                            </form>                           
+                            <FormAddItem idLista={idLista} setItens={setItens} itens={itens}/>
                         </td>
                     </tr>
 
