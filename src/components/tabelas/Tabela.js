@@ -4,7 +4,7 @@ export default function Tabela({header, rows}){
 
     return(
         <table className="table table-hover">
-            <thead>
+            <thead className="table-light">
                 {header}
             </thead>
             <tbody>

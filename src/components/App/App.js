@@ -16,7 +16,11 @@ function App() {
           <ListaDeComprasTable/>
         </Route>
 
-        <Route exact path="/compras/:idLista">
+        <Route exact path="/compras/editar/:idLista">
+          <FormListaDeCompras/>
+        </Route>
+
+        <Route exact path="/compras/criar/">
           <FormListaDeCompras/>
         </Route>
 

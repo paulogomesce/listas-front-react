@@ -72,3 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 ### Bibliotecas de Terceiros
 
 Trabalhar com datas : [https://www.npmjs.com/package/dateformat](https://www.npmjs.com/package/dateformat)
+
+Icone :[https://icons.getbootstrap.com/](https://icons.getbootstrap.com/)
