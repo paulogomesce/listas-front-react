@@ -19,7 +19,7 @@ class ListaDeComprasTable extends Component {
   teste = 0;
 
   componentDidMount() {
-    axios.get("http://191.101.70.121:8081/listas")
+    axios.get("http://191.101.70.121:8081/listas/tipo/COMPRAS")
       .then(res => {
         const listasDeCompras = res.data;
         const listaSelecionada = listasDeCompras[10];
