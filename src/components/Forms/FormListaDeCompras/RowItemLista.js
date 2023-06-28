@@ -4,6 +4,7 @@ import axios from "axios";
 export default function RowItemLista({ item }) {
 
     const [itemLista, setItemLista] = useState(item);
+    const [displayRow, setDisplayRow] = useState(true);
 
     function configCorRow(statusRow) {
         if (statusRow === "PENDENTE")
@@ -19,9 +20,7 @@ export default function RowItemLista({ item }) {
     }
 
     const handleAddCarrinho = (novoStatus) => {
-
         const updateData = { id: itemLista.id, status: novoStatus }
-
         axios.patch('http://191.101.70.121:8081/listas/itens', updateData)
             .then(function (response) {
                 const itemAtualizado = response.data;
@@ -32,11 +31,26 @@ export default function RowItemLista({ item }) {
             });
     }
 
+    //TODO: implementar para excluir da lista
+    const handleExcluir = (idItem) => {
+        const confirma = window.confirm("Confirma excluir o item?")
+
+        if(confirma){
+            axios.delete('http://191.101.70.121:8081/listas/itens/'+idItem)
+                .then(function (response) {
+                    console.log("Item deletado com SUCESSO!")
+                    setDisplayRow(false);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        }
+    }
+
     return (
-        <tr className={configCorRow(itemLista.status)}>
+        <tr className={configCorRow(itemLista.status)} style={{display:displayRow ? "" : "none"}}>
             <td>
                 <div>{itemLista.produto.nomeProduto}</div>
-                <div style={{fontSize:8}}>{itemLista.status}</div>
+                <div style={{ fontSize: 8 }}>{itemLista.status}</div>
             </td>
             <td>{itemLista.quantidade || ""}</td>
             <td>
@@ -52,29 +66,31 @@ export default function RowItemLista({ item }) {
 
                         </button>
                         <ul className="dropdown-menu">
+                            { itemLista.status !== "PENDENTE" &&
+                                <button className="dropdown-item"
+                                    onClick={() => (handleAddCarrinho("PENDENTE"))}>
+                                    Pendente
+                                </button>
+                            }
+                            {itemLista.status !== "EM_FALTA" &&
+                                <button className="dropdown-item"
+                                    onClick={() => (handleAddCarrinho("EM_FALTA"))}>
+                                    Em falta
+                                </button>
+                            }
+                            {itemLista.status !== "CANCELADO" &&
+                                <button className="dropdown-item"
+                                    onClick={() => (handleAddCarrinho("CANCELADO"))}>
+                                    Cancelar
+                                </button>
+                            }
                             <button className="dropdown-item"
-                                onClick={() => (handleAddCarrinho("PENDENTE"))}>
-                                Retirar
+                                onClick={() => (handleExcluir(itemLista.id))}>
+                                Excluir
                             </button>
-                            <button className="dropdown-item"
-                                onClick={() => (handleAddCarrinho("EM_FALTA"))}>
-                                Em falta
-                            </button>
-                            <button className="dropdown-item"
-                                onClick={() => (handleAddCarrinho("CANCELADO"))}>
-                                Cancelar
-                            </button>                                                        
                         </ul>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
             </td>
         </tr>
     )

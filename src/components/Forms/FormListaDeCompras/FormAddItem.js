@@ -33,9 +33,11 @@ export default function FormAddItem({ idLista, setItens, itens }) {
             produto: {
                 nomeProduto: itemCrud.nomeProduto
             },
-            quantidade: itemCrud.quantidade
+            quantidade: itemCrud.quantidade,
+            status:'PENDENTE'
         }
-        axios.post('http://191.101.70.121:8081/listas/adicionar-item', novoItem)
+        console.log(novoItem)
+        axios.post('http://191.101.70.121:8081/listas/itens', novoItem)
             .then(function (response) {
                 const itemGravado = response.data;
                 setItens([...itens, itemGravado]);
