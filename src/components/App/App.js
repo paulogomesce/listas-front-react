@@ -1,9 +1,12 @@
+import React, { lazy, Suspense} from "react"
 import './App.css';
 import Header from '../Header/Header.js';
 import ListaDeComprasTable from '../tabelas/ListaDeCompras/ListaDeComprasTable.js';
 import { Route, Switch } from "react-router-dom";
-import FormListaDeCompras from '../Forms/FormListaDeCompras/FormListaDeCompras';
 import Footer from '../Footer/Footer';
+
+import FormListaDeCompras from '../Forms/FormListaDeCompras/FormListaDeCompras';
+//const FormListaDeCompras = lazy(() => import('../Forms/FormListaDeCompras/FormListaDeCompras'));
 
 function App() {  
 
@@ -17,7 +20,9 @@ function App() {
         </Route>
 
         <Route exact path="/compras/editar/:idLista">
-          <FormListaDeCompras/>
+          <Suspense fallback={<div>Carregando</div>} >
+            <FormListaDeCompras/>
+          </Suspense>          
         </Route>
 
         <Route exact path="/compras/criar/">

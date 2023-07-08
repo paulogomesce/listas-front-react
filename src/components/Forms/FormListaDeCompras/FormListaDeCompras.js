@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -35,7 +35,9 @@ export default function FormListaDeCompras() {
         <>  
             <FormCrudLista lista={lista} setLista={setLista}  />
             <br />
-            <TabelaItensLista  itens={itens} lista={lista} setItens={setItens} />                           
+            <Suspense fallback={<div>Carregando itens da lista</div>}>
+                <TabelaItensLista  itens={itens} lista={lista} setItens={setItens} />
+            </Suspense>
         </>
 
     );

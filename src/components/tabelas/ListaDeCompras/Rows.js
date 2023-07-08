@@ -13,7 +13,7 @@ export default function Rows({listas}){
                 </td>
                 <td><DataHora dataHora={lista.dataCriacao} /></td>
                 <td>
-                    <BotaoSelecionarLista id={lista.id}/>
+                    <BotaoSelecionarLista id={lista.id} listas={listas}/>
                 </td>
             </tr>
         ))

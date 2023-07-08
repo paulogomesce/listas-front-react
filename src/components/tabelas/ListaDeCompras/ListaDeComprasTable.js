@@ -37,7 +37,7 @@ class ListaDeComprasTable extends Component {
           <BotaoNovaListaCompras />
         </div>
         <Tabela header={<Header />}
-          rows={<Rows listas={this.state.listasDeCompras} />} />
+          rows={<Rows listas={this.state.listasDeCompras.sort(function(a,b){return b.id - a.id})} />} />
       </>
     );
   }
