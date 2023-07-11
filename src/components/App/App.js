@@ -1,4 +1,4 @@
-import React, { lazy, Suspense} from "react"
+import React, { Suspense} from "react"
 import './App.css';
 import Header from '../Header/Header.js';
 import ListaDeComprasTable from '../tabelas/ListaDeCompras/ListaDeComprasTable.js';

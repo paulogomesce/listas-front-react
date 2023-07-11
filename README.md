@@ -74,3 +74,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 Trabalhar com datas : [https://www.npmjs.com/package/dateformat](https://www.npmjs.com/package/dateformat)
 
 Icone :[https://icons.getbootstrap.com/](https://icons.getbootstrap.com/)
+
+"homepage": "http://listadecompras.pe.hu/",
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.html$ — [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /index.html [L]
+</IfModule>
