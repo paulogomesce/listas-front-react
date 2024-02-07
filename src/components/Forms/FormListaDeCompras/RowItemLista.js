@@ -40,6 +40,7 @@ export default function RowItemLista({ item }) {
                 .then(function (response) {
                     console.log("Item deletado com SUCESSO!")
                     setDisplayRow(false);
+                    document.getElementById('nomeProduto').focus();
                 }).catch(function (error) {
                     console.log(error);
                 });

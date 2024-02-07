@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
 
 
-export default function BotaoSelecionarLista({ id, listas }) {
+export default function BotaoSelecionarLista({ id, listas, setListasDeCompras}) {
 
     const handleDeletarLista = () => {
 
+        const listaAux = listas;
+
+
         var index = listas.findIndex((v) => v.id === id);
 
-        listas.splice(index, 1);
+        listaAux.splice(index, 1);
 
-        console.log(listas)
+        setListasDeCompras([...listas, listaAux]);
+
+        console.log("nova lista:", listas)
         console.log("Index: ", index);
     }
-
 
     return (
         <div className="btn-group" role="group" aria-label="Button group with nested dropdown">

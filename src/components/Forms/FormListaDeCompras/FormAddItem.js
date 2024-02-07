@@ -42,6 +42,7 @@ export default function FormAddItem({ idLista, setItens, itens }) {
                 const itemGravado = response.data;
                 setItens([...itens, itemGravado]);
                 setItemCrud({ limpaForm: true });
+                document.getElementById('nomeProduto').focus();
             }).catch(function (error) {
                 console.log(error);
             });

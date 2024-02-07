@@ -2,7 +2,7 @@ import React from "react";
 import BotaoSelecionarLista from "../../Botoes/BotaoSelecionarLista";
 import DataHora from "../../Genericos/DataHora";
 
-export default function Rows({listas}){
+export default function Rows({listas, setListasDeCompras}){
 
     return (
         listas.map(lista => (
@@ -13,7 +13,7 @@ export default function Rows({listas}){
                 </td>
                 <td><DataHora dataHora={lista.dataCriacao} /></td>
                 <td>
-                    <BotaoSelecionarLista id={lista.id} listas={listas}/>
+                    <BotaoSelecionarLista id={lista.id} listas={listas} setListasDeCompras={setListasDeCompras}/>
                 </td>
             </tr>
         ))
