@@ -13,32 +13,35 @@ import TabelaItensLista from "./TabelaItensLista";
   };*/
 
 export default function FormListaDeCompras() {
-    const { idLista } = useParams();
-    const { criar } = useParams();
+  const { idLista } = useParams();
+  const { criar } = useParams();
 
-    const [lista, setLista] = useState({ idUsuarioProprietario: 1, tipoLista : "COMPRAS"});
-    const [itens, setItens] = useState([]);
+  const [lista, setLista] = useState({
+    idUsuarioProprietario: 1,
+    tipoLista: "COMPRAS",
+  });
+  const [itens, setItens] = useState([]);
 
-    useEffect(() => {
-        console.clear()
-        if(idLista){
-            axios.get("http://191.101.70.121:8081/listas/" + idLista)
-                .then(res => {
-                    const lista = res.data;
-                    setLista(lista);
-                    setItens(lista.itens);
-                })
-        }
-    }, []);
+  useEffect(() => {
+    console.clear();
+    if (idLista) {
+      axios
+        .get(process.env.REACT_APP_URL_API + "/listas/" + idLista)
+        .then((res) => {
+          const lista = res.data;
+          setLista(lista);
+          setItens(lista.itens);
+        });
+    }
+  }, []);
 
-    return (
-        <>  
-            <FormCrudLista lista={lista} setLista={setLista}  />
-            <br />
-            <Suspense fallback={<div>Carregando itens da lista</div>}>
-                <TabelaItensLista  itens={itens} lista={lista} setItens={setItens} />
-            </Suspense>
-        </>
-
-    );
+  return (
+    <>
+      <FormCrudLista lista={lista} setLista={setLista} />
+      <br />
+      <Suspense fallback={<div>Carregando itens da lista</div>}>
+        <TabelaItensLista itens={itens} lista={lista} setItens={setItens} />
+      </Suspense>
+    </>
+  );
 }
