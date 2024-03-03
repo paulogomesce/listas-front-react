@@ -5,12 +5,30 @@ import ListaDeComprasTable from "../tabelas/ListaDeCompras/ListaDeComprasTable.j
 import { Route, Switch } from "react-router-dom";
 import Footer from "../Footer/Footer";
 
+import 'react-toastify/dist/ReactToastify.css';
+
+import { ToastContainer } from 'react-toastify';
+
 import FormListaDeCompras from "../Forms/FormListaDeCompras/FormListaDeCompras";
 //const FormListaDeCompras = lazy(() => import('../Forms/FormListaDeCompras/FormListaDeCompras'));
 
 function App() {
   return (
     <div className="App">
+
+      <ToastContainer
+      position="bottom-center"
+      autoClose={2000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      />
+
       <Header />
 
       <Switch>
@@ -39,9 +57,11 @@ function App() {
         <Route exact path="/">
           <h1>Home Page</h1>
         </Route>
+
       </Switch>
 
       <Footer />
+
     </div>
   );
 }

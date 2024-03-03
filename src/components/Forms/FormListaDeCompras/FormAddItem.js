@@ -1,6 +1,8 @@
 import { useReducer } from "react";
 import axios from "axios";
 
+import { toast } from 'react-toastify';
+
 const formReducer = (state, event) => {
   if (event.limpaForm) {
     return {
@@ -35,18 +37,27 @@ export default function FormAddItem({ idLista, setItens, itens }) {
       quantidade: itemCrud.quantidade,
       status: "PENDENTE",
     };
-    console.log(novoItem);
-    axios
-      .post(process.env.REACT_APP_URL_API + "/listas/itens", novoItem)
-      .then(function (response) {
-        const itemGravado = response.data;
-        setItens([...itens, itemGravado]);
-        setItemCrud({ limpaForm: true });
-        document.getElementById("nomeProduto").focus();
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    
+    toast.promise(
+      () => (
+        axios
+        .post(process.env.REACT_APP_URL_API + "/itens", novoItem)
+        .then(function (response) {
+          const itemGravado = response.data;
+          setItens([...itens, itemGravado]);
+          setItemCrud({ limpaForm: true });
+          document.getElementById("nomeProduto").focus();
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      ),
+      {
+        pending: 'Aguarde...',
+        success: 'Adicionado com sucesso!',
+        error: 'Erro ao adicionar o item.'
+      }
+  )    
   };
 
   return (
@@ -66,12 +77,12 @@ export default function FormAddItem({ idLista, setItens, itens }) {
         </div>
         <div className="col-2">
           <input
-            type="text"
             className="form-control form-control-sm"
             id="quantidade"
             name="quantidade"
             placeholder="Quantidade"
             onChange={handleChangeItem}
+            type="number"
             value={itemCrud.quantidade || ""}
             required
           />
@@ -82,6 +93,7 @@ export default function FormAddItem({ idLista, setItens, itens }) {
           </button>
         </div>
       </div>
+
     </form>
   );
 }

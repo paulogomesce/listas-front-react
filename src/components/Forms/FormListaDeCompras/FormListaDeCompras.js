@@ -5,6 +5,8 @@ import axios from "axios";
 import FormCrudLista from "./FormCrudLista";
 import TabelaItensLista from "./TabelaItensLista";
 
+import { toast } from 'react-toastify';
+
 /*const formReducer = (state, event) => {
     return {
       ...state,
@@ -23,15 +25,28 @@ export default function FormListaDeCompras() {
   const [itens, setItens] = useState([]);
 
   useEffect(() => {
-    console.clear();
     if (idLista) {
-      axios
-        .get(process.env.REACT_APP_URL_API + "/listas/" + idLista)
+        toast.promise(
+          axios
+        .get(process.env.REACT_APP_URL_API + "/" + idLista)
         .then((res) => {
           const lista = res.data;
           setLista(lista);
-          setItens(lista.itens);
-        });
+        })
+        ,{pending: 'Carregando a lista, aguarde...'}
+      )
+
+      toast.promise(
+      axios
+        .get(process.env.REACT_APP_URL_API + "/itens/lista/" + idLista)
+        .then((res) => {
+          const itensResposta = res.data;
+          setItens(itensResposta);
+        })
+        ,{pending: 'Carregando os itens da lista, aguarde...'}
+      );
+
+
     }
   }, []);
 

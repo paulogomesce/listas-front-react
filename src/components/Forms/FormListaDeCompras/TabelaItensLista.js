@@ -22,9 +22,11 @@ export default function TabelaItensLista({ itens, lista, setItens }) {
                     </tr>
                 }
 
-                {itens.map((item) => (
+                {itens ? itens.map((item) => (
                     <RowItemLista item={item} key={item.id}/>
-                ))}
+                ))
+                : ''
+                }
             </tbody>
         </table>
     )

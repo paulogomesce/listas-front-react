@@ -4,17 +4,22 @@ import Tabela from "../Tabela";
 import Header from "./Header";
 import Rows from "./Rows";
 import BotaoNovaListaCompras from "../../Botoes/BotaoNovaListaCompras";
+import { toast } from 'react-toastify';
 
 export default function ListaDeComprasTable() {
   const [listasDeCompras, setListasDeCompras] = useState([]);
 
   useEffect(() => {
+    toast.promise(
     axios
-      .get(process.env.REACT_APP_URL_API + "/listas/tipo/COMPRAS")
+      .get(process.env.REACT_APP_URL_API + "/tipo/COMPRAS")
       .then((res) => {
         const listasDeCompras = res.data;
         setListasDeCompras(listasDeCompras);
-      });
+      })
+      ,{pending: 'Carregando...',
+      error: 'Erro ao carregar as listas.'
+    });
   }, []);
 
   return (

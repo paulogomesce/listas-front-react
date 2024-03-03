@@ -1,21 +1,34 @@
 import { Link } from "react-router-dom";
+import axios from "axios";
 
+import { toast } from 'react-toastify';
 
 export default function BotaoSelecionarLista({ id, listas, setListasDeCompras}) {
 
     const handleDeletarLista = () => {
 
-        const listaAux = listas;
+        const confirma = window.confirm("Confirma excluir a lista?");
 
+        if (confirma) {
+          toast.promise(
+              axios
+              .delete(process.env.REACT_APP_URL_API + "/" + id)
+              .then(function (response) {
+                
+                const listaAux = listas;
+                var index = listas.findIndex((v) => v.id === id);
+                listaAux.splice(index, 1);
+                setListasDeCompras([...listas, listaAux]);
 
-        var index = listas.findIndex((v) => v.id === id);
-
-        listaAux.splice(index, 1);
-
-        setListasDeCompras([...listas, listaAux]);
-
-        console.log("nova lista:", listas)
-        console.log("Index: ", index);
+              })   
+            ,
+            {
+              pending: 'Aguarde...',
+              success: 'Excluído com sucesso!',
+              error: 'Erro ao excluir a lista.'
+            }
+          )
+        }
     }
 
     return (

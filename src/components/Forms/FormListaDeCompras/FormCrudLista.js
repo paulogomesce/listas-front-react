@@ -1,33 +1,41 @@
 import axios from "axios";
 import DataHora from "../../Genericos/DataHora";
+import { toast } from 'react-toastify';
 
 export default function FormCrudLista({ lista, setLista }) {
   const handleGravarLista = (event) => {
     event.preventDefault();
+    
     if (lista.id) {
-      axios
-        .put(process.env.REACT_APP_URL_API + "/listas", lista)
-        .then(function (response) {
-          const listaGravada = response.data;
-          console.log(listaGravada);
-          setLista(listaGravada);
-          console.log("Lista Atualizada com SUCESSO!");
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      toast.promise(
+        axios
+          .put(process.env.REACT_APP_URL_API + "/", lista)
+          .then(function (response) {
+            const listaGravada = response.data;
+            console.log(listaGravada);
+            setLista(listaGravada);
+          })
+          ,{
+            pending: 'Aguarde...',
+            success: 'Lista atualizada com sucesso!',
+            error: 'Erro ao atualizar a lista.'
+          });
+
     } else {
+      toast.promise(
       axios
-        .post(process.env.REACT_APP_URL_API + "/listas", lista)
+        .post(process.env.REACT_APP_URL_API + "/", lista)
         .then(function (response) {
           const listaGravada = response.data;
           console.log(listaGravada);
           setLista(listaGravada);
           console.log("Lista criada com SUCESSO!");
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+        ,{
+          pending: 'Aguarde...',
+          success: 'Lista criada com sucesso!',
+          error: 'Erro ao criar a lista.'
+      });
     }
   };
 

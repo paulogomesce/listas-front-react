@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+import { toast } from 'react-toastify';
+
 export default function RowItemLista({ item }) {
   const [itemLista, setItemLista] = useState(item);
   const [displayRow, setDisplayRow] = useState(true);
@@ -15,8 +17,10 @@ export default function RowItemLista({ item }) {
 
   const handleAddCarrinho = (novoStatus) => {
     const updateData = { id: itemLista.id, status: novoStatus };
-    axios
-      .patch(process.env.REACT_APP_URL_API + "/listas/itens", updateData)
+
+    toast.promise(
+      axios
+      .patch(process.env.REACT_APP_URL_API + "/itens", updateData)
       .then(function (response) {
         const itemAtualizado = response.data;
         console.log("Item atualizado com SUCESSO!");
@@ -24,7 +28,12 @@ export default function RowItemLista({ item }) {
       })
       .catch(function (error) {
         console.log(error);
-      });
+      }),
+      {
+      pending: 'Aguarde...',
+      success: 'Sucesso!',
+      error: 'Erro ao mudar status do item.'
+    });    
   };
 
   //TODO: implementar para excluir da lista
@@ -32,16 +41,27 @@ export default function RowItemLista({ item }) {
     const confirma = window.confirm("Confirma excluir o item?");
 
     if (confirma) {
-      axios
-        .delete(process.env.REACT_APP_URL_API + "/listas/itens/" + idItem)
-        .then(function (response) {
-          console.log("Item deletado com SUCESSO!");
-          setDisplayRow(false);
-          document.getElementById("nomeProduto").focus();
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      toast.promise(
+        () => (
+          
+          axios
+          .delete(process.env.REACT_APP_URL_API + "/itens/" + idItem)
+          .then(function (response) {
+            console.log("Item deletado com SUCESSO!");
+            setDisplayRow(false);
+            document.getElementById("nomeProduto").focus();
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+
+        ),
+        {
+          pending: 'Aguarde...',
+          success: 'Excluído com sucesso!',
+          error: 'Erro ao excluir o item.'
+        }
+      )
     }
   };
 
